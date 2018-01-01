@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='dopamin-presentation',
-    version='0.0.8',
+    version='0.0.9',
     packages=find_packages(),
     include_package_data=True,
     license='Apache 2.0 License',  # example license
