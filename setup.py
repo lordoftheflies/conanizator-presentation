@@ -8,16 +8,16 @@ with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='conanizator-presentation',
+    name='dopamin-presentation',
     version='0.0.1',
     packages=find_packages(),
     include_package_data=True,
-    license='BSD License',  # example license
+    license='Apache 2.0 License',  # example license
     description='A simple Django app to conduct Web-based polls.',
     long_description=README,
-    url='https://www.example.com/',
-    author='Your Name',
-    author_email='yourname@example.com',
+    url='https://github.com/lordoftheflies/dopamin-presentation/',
+    author='lordoftheflies',
+    author_email='laszlo.hegedus@cherubits.hu',
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
