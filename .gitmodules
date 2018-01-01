@@ -1,0 +1,3 @@
+[submodule "dopamin_presentation/static/dopamin_presentation"]
+	path = dopamin_presentation/static/dopamin_presentation
+	url = git@github.com:lordoftheflies/plutonium-frontend.git
