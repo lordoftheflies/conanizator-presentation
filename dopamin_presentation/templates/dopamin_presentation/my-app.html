@@ -1,0 +1,203 @@
+{% load static %}
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="{% static 'polymer/polymer-element.html' %}">
+<link rel="import" href="{% static 'app-layout/app-drawer/app-drawer.html' %}">
+<link rel="import" href="{% static 'app-layout/app-drawer-layout/app-drawer-layout.html' %}">
+<link rel="import" href="{% static 'app-layout/app-header/app-header.html' %}">
+<link rel="import" href="{% static 'app-layout/app-header-layout/app-header-layout.html' %}">
+<link rel="import" href="{% static 'app-layout/app-scroll-effects/app-scroll-effects.html' %}">
+<link rel="import" href="{% static 'app-layout/app-toolbar/app-toolbar.html' %}">
+<link rel="import" href="{% static 'app-route/app-location.html' %}">
+<link rel="import" href="{% static 'app-route/app-route.html' %}">
+<link rel="import" href="{% static 'paper-dialog/paper-dialog.html' %}">
+<link rel="import" href="{% static 'iron-pages/iron-pages.html' %}">
+<link rel="import" href="{% static 'iron-selector/iron-selector.html' %}">
+<link rel="import" href="{% static 'paper-button/paper-button.html' %}">
+<link rel="import" href="{% static 'paper-icon-button/paper-icon-button.html' %}">
+<link rel="import" href="{% static 'paper-toast/paper-toast.html' %}">
+<link rel="import" href="{% static 'paper-fab/paper-fab.html' %}">
+
+<link rel="import" href="{% url 'icons' %}">
+<link rel="import" href="{% static 'dopamin_presentation/src/shared-styles.html' %}">
+<link rel="import" href="{% static 'dopamin_presentation/src/plutonium-modal.html' %}">
+<link rel="import" href="{% static 'dopamin_presentation/src/plutonium-notification.html' %}">
+<link rel="import" href="{% static 'dopamin_presentation/src/plutonium-navigation.html' %}">
+
+<link rel="lazy-import" href="{% url 'page' 'my-view1' %}">
+<link rel="lazy-import" href="{% url 'page' 'my-view2' %}">
+<link rel="lazy-import" href="{% url 'page' 'my-view3' %}">
+<link rel="lazy-import" href="{% url 'page' 'my-view404' %}">
+
+<dom-module id="my-app">
+    <template>
+        <style include="shared-styles">
+            :host {
+                --app-primary-color: #4285f4;
+                --app-secondary-color: black;
+                display: block;
+            }
+            app-drawer-layout:not([narrow]) [drawer-toggle] {
+                display: none;
+            }
+            app-header {
+                color: #fff;
+                background-color: var(--app-primary-color);
+            }
+            app-header paper-icon-button {
+                --paper-icon-button-ink-color: white;
+            }
+            .drawer-list a {
+                display: block;
+                padding: 0 16px;
+                text-decoration: none;
+                color: var(--app-secondary-color);
+                line-height: 40px;
+            }
+            .drawer-list a.iron-selected {
+                color: black;
+                font-weight: bold;
+            }
+        </style>
+        {% verbatim %}
+
+        <app-location
+                route="{{route}}"
+                url-space-regex="^[[rootPath]]"
+                use-hash-as-path>
+        </app-location>
+
+        <app-route
+                route="{{route}}"
+                pattern="[[rootPath]]:page"
+                data="{{routeData}}"
+                tail="{{subroute}}">
+        </app-route>
+
+        <paper-dialog id="dialog" modal>
+            <h2>Header</h2>
+            <paper-dialog-scrollable>
+                Lorem ipsum...
+            </paper-dialog-scrollable>
+            <div class="buttons">
+                <paper-button raised dialog-dismiss>Cancel</paper-button>
+                <paper-button raised dialog-confirm autofocus>Accept</paper-button>
+            </div>
+        </paper-dialog>
+        <paper-dialog id="alertDialog" modal>
+            <h2>Alert</h2>
+            <paper-dialog-scrollable>[[alertMessage]]</paper-dialog-scrollable>
+            <div class="buttons">
+                <paper-button raised dialog-dismiss autofocus>Ok</paper-button>
+            </div>
+        </paper-dialog>
+
+        <app-drawer-layout fullbleed narrow="{{narrow}}">
+            <!-- Drawer content -->
+            <app-drawer id="mainDrawer" slot="drawer" swipe-open="[[narrow]]" align="start">
+                <app-toolbar>Menu</app-toolbar>
+                <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+                    <a name="view1" href="[[rootPath]]#/view1">View One</a>
+                    <a name="view2" href="[[rootPath]]#/view2">View Two</a>
+                    <a name="view3" href="[[rootPath]]#/view3">View Three</a>
+                </iron-selector>
+            </app-drawer>
+
+            <app-drawer id="minorDrawer" slot="drawer" align="end">
+                <app-toolbar>Menu</app-toolbar>
+            </app-drawer>
+
+            <!-- Main content -->
+            <app-header-layout has-scrolling-region>
+                <app-header slot="header" fixed shadow>
+                    <iron-pages
+                            selected="[[page]]"
+                            attr-for-selected="name"
+                            fallback-selection="common"
+                            role="main">
+                        <app-toolbar name="common">
+                            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+                            <div main-title>My App</div>
+                            <paper-icon-button icon="my-icons:texture" on-tap="openMinorDrawer"></paper-icon-button>
+                        </app-toolbar>
+                        <app-toolbar name="view1">
+                            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+                            <div main-title>View #1</div>
+                            <paper-icon-button icon="my-icons:texture" on-tap="openMinorDrawer"></paper-icon-button>
+                        </app-toolbar>
+                        <app-toolbar name="view2">
+                            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+                            <div main-title>View #2</div>
+                            <paper-icon-button icon="my-icons:texture" on-tap="openMinorDrawer"></paper-icon-button>
+                        </app-toolbar>
+                        <app-toolbar name="view3">
+                            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+                            <div main-title>View #3</div>
+                            <paper-icon-button icon="my-icons:texture" on-tap="openMinorDrawer"></paper-icon-button>
+                        </app-toolbar>
+                    </iron-pages>
+                </app-header>
+
+                <iron-pages
+                        selected="[[page]]"
+                        attr-for-selected="name"
+                        fallback-selection="view404"
+                        role="main">
+                    <my-view1 name="view1"></my-view1>
+                    <my-view2 name="view2">
+                        <label slot="empty">No items.</label>
+                        <label slot="loading">Loading data ...</label>
+                    </my-view2>
+                    <my-view3 name="view3"></my-view3>
+                    <my-view404 name="view404"></my-view404>
+                </iron-pages>
+
+
+            </app-header-layout>
+
+        </app-drawer-layout>
+
+        <paper-toast id="toast" duration="0">
+            <paper-fab icon="my-icons:clear" mini
+                       style="background-color: black; position: absolute; top: -20px; right: -20px;"
+                       on-tap="clearNotifications"></paper-fab>
+            <template is="dom-repeat" items="[[notifications]]" as="notification">
+                <div class$="[[notification.level]]">
+                    <span>[[notification.message]]</span>
+                    <a hidden="[[!notification.link]]" href="[[notification.link]]">Show more</a>
+                </div>
+            </template>
+        </paper-toast>
+        {% endverbatim %}
+
+    </template>
+
+    <script>
+        class MyApp extends window.Plutonium.NavigationHost(window.Plutonium.NotificationHost(window.Plutonium.ModalHost(Polymer.Element))) {
+            static get is() {
+                return 'my-app';
+            }
+
+            ready() {
+                super.ready();
+                console.log('application ready');
+            }
+
+            openMinorDrawer(event) {
+                this.$.minorDrawer.open();
+            }
+            openDialog(event) {
+                this.$.dialog.open();
+            }
+        }
+        window.customElements.define(MyApp.is, MyApp);
+    </script>
+</dom-module>
