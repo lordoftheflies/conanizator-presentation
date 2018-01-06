@@ -16,18 +16,30 @@ Including another URLconf
 import os
 
 from django.conf import settings
-from django.urls import path, re_path
+from django.urls import path, re_path, reverse
 from django.views.generic import TemplateView
 from django.views.static import serve
+
+
+def polymer_index_page(slug, backend_url):
+    return path(r'src/my-%s.html' % slug, TemplateView.as_view(template_name='dopamin_presentation/my-list-view.html'),
+                name=slug, kwargs={
+            'backend_url': backend_url,
+            'slug': slug
+        })
+
 
 urlpatterns = [
     path(r'', TemplateView.as_view(template_name='dopamin_presentation/index.html'), name='index'),
     path(r'src/my-icons.html', TemplateView.as_view(template_name='dopamin_presentation/my-icons.html'), name='icons'),
-    path(r'src/my-app.html', TemplateView.as_view(template_name='dopamin_presentation/my-app.html'), name='application'),
+    path(r'src/my-app.html', TemplateView.as_view(template_name='dopamin_presentation/my-app.html'),
+         name='application'),
     path(r'service-worker.js', serve, kwargs={
         'document_root': settings.STATIC_ROOT,
         'path': 'dopamin_presentation/service-worker.js'
     }, name='service_worker'),
+    polymer_index_page(slug='view3', backend_url='http://127.0.0.1:8000/demo_list'),
+    # polymer_index_page(slug='view4'),
     re_path(r'src/(?P<path>.*)', serve, kwargs={
         'document_root': os.path.join(settings.STATIC_ROOT, 'dopamin_presentation', 'src')
     }, name='page')

@@ -34,7 +34,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="lazy-import" href="{% url 'page' 'my-view1' %}">
 <link rel="lazy-import" href="{% url 'page' 'my-view2' %}">
-<link rel="lazy-import" href="{% url 'page' 'my-view3' %}">
+<!--<link rel="lazy-import" href="{% url 'page' 'my-view3' %}">-->
+<link rel="lazy-import" href="{% url 'view3' %}">
 <link rel="lazy-import" href="{% url 'page' 'my-view404' %}">
 
 <dom-module id="my-app">
@@ -66,6 +67,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 color: black;
                 font-weight: bold;
             }
+
+
+
         </style>
         {% verbatim %}
 
@@ -82,16 +86,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 tail="{{subroute}}">
         </app-route>
 
-        <paper-dialog id="dialog" modal>
-            <h2>Header</h2>
-            <paper-dialog-scrollable>
-                Lorem ipsum...
-            </paper-dialog-scrollable>
-            <div class="buttons">
-                <paper-button raised dialog-dismiss>Cancel</paper-button>
-                <paper-button raised dialog-confirm autofocus>Accept</paper-button>
-            </div>
-        </paper-dialog>
+        {% endverbatim %}
+        {% include "dopamin_presentation/modal-content.html" %}
+        {% verbatim %}
         <paper-dialog id="alertDialog" modal>
             <h2>Alert</h2>
             <paper-dialog-scrollable>[[alertMessage]]</paper-dialog-scrollable>
@@ -103,16 +100,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-drawer-layout fullbleed narrow="{{narrow}}">
             <!-- Drawer content -->
             <app-drawer id="mainDrawer" slot="drawer" swipe-open="[[narrow]]" align="start">
-                <app-toolbar>Menu</app-toolbar>
-                <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-                    <a name="view1" href="[[rootPath]]#/view1">View One</a>
-                    <a name="view2" href="[[rootPath]]#/view2">View Two</a>
-                    <a name="view3" href="[[rootPath]]#/view3">View Three</a>
-                </iron-selector>
+                {% endverbatim %}
+                {% include "dopamin_presentation/main-drawer-content.html" %}
+                {% verbatim %}
             </app-drawer>
 
             <app-drawer id="minorDrawer" slot="drawer" align="end">
-                <app-toolbar>Menu</app-toolbar>
+                {% endverbatim %}
+                {% include "dopamin_presentation/minor-drawer-content.html" %}
+                {% verbatim %}
             </app-drawer>
 
             <!-- Main content -->
@@ -123,46 +119,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                             attr-for-selected="name"
                             fallback-selection="common"
                             role="main">
-                        <app-toolbar name="common">
-                            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-                            <div main-title>My App</div>
-                            <paper-icon-button icon="my-icons:texture" on-tap="openMinorDrawer"></paper-icon-button>
-                        </app-toolbar>
-                        <app-toolbar name="view1">
-                            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-                            <div main-title>View #1</div>
-                            <paper-icon-button icon="my-icons:texture" on-tap="openMinorDrawer"></paper-icon-button>
-                        </app-toolbar>
-                        <app-toolbar name="view2">
-                            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-                            <div main-title>View #2</div>
-                            <paper-icon-button icon="my-icons:texture" on-tap="openMinorDrawer"></paper-icon-button>
-                        </app-toolbar>
-                        <app-toolbar name="view3">
-                            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-                            <div main-title>View #3</div>
-                            <paper-icon-button icon="my-icons:texture" on-tap="openMinorDrawer"></paper-icon-button>
-                        </app-toolbar>
+                        {% endverbatim %}
+                        {% include "dopamin_presentation/header-content.html" %}
+                        {% verbatim %}
                     </iron-pages>
                 </app-header>
-
                 <iron-pages
                         selected="[[page]]"
                         attr-for-selected="name"
                         fallback-selection="view404"
                         role="main">
-                    <my-view1 name="view1"></my-view1>
-                    <my-view2 name="view2">
-                        <label slot="empty">No items.</label>
-                        <label slot="loading">Loading data ...</label>
-                    </my-view2>
-                    <my-view3 name="view3"></my-view3>
-                    <my-view404 name="view404"></my-view404>
+                    {% endverbatim %}
+                    {% include "dopamin_presentation/main-content.html" %}
+                    {% verbatim %}
                 </iron-pages>
-
-
             </app-header-layout>
-
         </app-drawer-layout>
 
         <paper-toast id="toast" duration="0">
@@ -177,7 +148,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </template>
         </paper-toast>
         {% endverbatim %}
-
     </template>
 
     <script>
@@ -199,5 +169,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
         }
         window.customElements.define(MyApp.is, MyApp);
+
+
+
     </script>
 </dom-module>
