@@ -137,6 +137,7 @@ BOWER_INSTALLED_APPS = (
     'PolymerElements/app-layout',
     'PolymerElements/app-route',
     'PolymerElements/iron-ajax',
+    'PolymerElements/iron-collapse',
     'PolymerElements/iron-form',
     'PolymerElements/iron-icon',
     'PolymerElements/iron-iconset-svg',

@@ -20,13 +20,21 @@ from django.urls import path, re_path, reverse
 from django.views.generic import TemplateView
 from django.views.static import serve
 
+from dopamin_presentation import views
+
 
 def polymer_index_page(slug, backend_url):
-    return path(r'src/my-%s.html' % slug, TemplateView.as_view(template_name='dopamin_presentation/my-list-view.html'),
-                name=slug, kwargs={
-            'backend_url': backend_url,
-            'slug': slug
-        })
+    return path(r'src/my-%s.html' % slug,
+                TemplateView.as_view(template_name='dopamin_presentation/views/listview.html'),
+                name=slug,
+                kwargs={
+                    'backend_url': backend_url,
+                    'slug': slug
+                })
+
+
+def polymer_graph_page(slug):
+    return path(r'src/my-%s.html' % slug, views.index, name=slug)
 
 
 urlpatterns = [
@@ -39,6 +47,7 @@ urlpatterns = [
         'path': 'dopamin_presentation/service-worker.js'
     }, name='service_worker'),
     polymer_index_page(slug='view3', backend_url='http://127.0.0.1:8000/demo_list'),
+    polymer_graph_page(slug='view4'),
     # polymer_index_page(slug='view4'),
     re_path(r'src/(?P<path>.*)', serve, kwargs={
         'document_root': os.path.join(settings.STATIC_ROOT, 'dopamin_presentation', 'src')

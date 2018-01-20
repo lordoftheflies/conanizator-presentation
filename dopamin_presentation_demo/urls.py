@@ -18,6 +18,12 @@ import json
 import time
 from django.http import JsonResponse
 
+from django.shortcuts import render, render_to_response
+
+from bokeh.plotting import figure, output_file, show
+from bokeh.embed import components
+
+
 import dopamin_presentation
 from django.contrib import admin
 from django.urls import path, include
@@ -31,6 +37,7 @@ def json_list(request):
     ]), safe=False)
 
 urlpatterns = [
+    # path('graph', index, name='graph'),
     path('admin/', admin.site.urls),
     path('demo_list', json_list, name='demo_list'),
     path(r'', include('dopamin_presentation.urls'))

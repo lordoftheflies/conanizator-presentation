@@ -1,7 +1,37 @@
 <app-toolbar>Menu</app-toolbar>
 <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-    <a name="view1" href="[[rootPath]]#/view1">View One</a>
-    <a name="view2" href="[[rootPath]]#/view2">View Two</a>
-    <a name="view3" href="[[rootPath]]#/view3">View Three</a>
-    <a name="view4" href="[[rootPath]]#/view4">View Four</a>
+    <a name="view1" href="[[rootPath]]#/view1">Demo</a>
+</iron-selector>
+<plutonium-module-menu-panel module-title="Module #1" page="[[page]]" root-path="[[rootPath]]">
+    <a name="view2" href="[[rootPath]]#/view2" slot="menu">Menu #7</a>
+    <a name="view1" href="[[rootPath]]#/view3" slot="menu">Menu #8</a>
+    <a name="view1" href="[[rootPath]]#/view4" slot="menu">Menu #9</a>
+    <plutonium-tree-menu name="view5" href="[[rootPath]]#/view1" slot="menu">
+        <label slot="label">Menu #10</label>
+        <a name="view4" href="[[rootPath]]#/view6" slot="submenu">Submenu #1</a>
+        <a name="view4" href="[[rootPath]]#/view7" slot="submenu">Submenu #2</a>
+        <a name="view4" href="[[rootPath]]#/view8" slot="submenu">Submenu #3</a>
+    </plutonium-tree-menu>
+    <plutonium-tree-menu name="view1" href="[[rootPath]]#/view9" slot="menu">
+        <label slot="label">Menu #11</label>
+        <plutonium-tree-menu name="view1" href="[[rootPath]]#/view10" slot="submenu">
+            <label slot="label">Submmenu #7</label>
+            <a name="view4" href="[[rootPath]]#/view11" slot="submenu">Subsubmenu #1</a>
+            <a name="view4" href="[[rootPath]]#/view12" slot="submenu">Subsubmenu #2</a>
+            <a name="view4" href="[[rootPath]]#/view13" slot="submenu">Subsubmenu #3</a>
+        </plutonium-tree-menu>
+    </plutonium-tree-menu>
+</plutonium-module-menu-panel>
+<plutonium-module-menu-panel module-title="Module #2" page="[[page]]" root-path="[[rootPath]]">
+    <a name="view1" href="[[rootPath]]#/view1" slot="menu">Menu #5</a>
+    <plutonium-tree-menu name="view1" href="[[rootPath]]#/view1" slot="menu">
+        <label slot="label">Menu #6</label>
+        <a name="view4" href="[[rootPath]]#/view4" slot="submenu">Submenu #1</a>
+        <a name="view4" href="[[rootPath]]#/view4" slot="submenu">Submenu #2</a>
+        <a name="view4" href="[[rootPath]]#/view4" slot="submenu">Submenu #3</a>
+    </plutonium-tree-menu>
+</plutonium-module-menu-panel>
+<iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+    <a name="view1" href="[[rootPath]]#/view1">Configuration</a>
+    <a name="view1" href="[[rootPath]]#/view1">Help</a>
 </iron-selector>

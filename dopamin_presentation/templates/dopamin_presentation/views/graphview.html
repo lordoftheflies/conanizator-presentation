@@ -1,0 +1,68 @@
+{% load static %}
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="{% static 'polymer/polymer-element.html' %}">
+<link rel="import" href="{% static 'iron-ajax/iron-ajax.html' %}">
+<link rel="import" href="{% static 'iron-list/iron-list.html' %}">
+<link rel="import" href="{% static 'paper-spinner/paper-spinner.html' %}">
+<link rel="import" href="{% static 'paper-item/paper-item.html' %}">
+<link rel="import" href="{% static 'dopamin_presentation/src/shared-styles.html' %}">
+
+<link
+    href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.13.min.css"
+    rel="stylesheet" type="text/css">
+<link
+    href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.13.min.css"
+    rel="stylesheet" type="text/css">
+<link
+    href="http://cdn.pydata.org/bokeh/release/bokeh-tables-0.12.13.min.css"
+    rel="stylesheet" type="text/css">
+
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.13.min.js"></script>
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.13.min.js"></script>
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-tables-0.12.13.min.js"></script>
+
+<dom-module id="my-{{ slug }}">
+
+    <template>
+        <style include="shared-styles">
+          :host {
+            display: block;
+          }
+        </style>
+        {{ div | safe }}
+    </template>
+
+
+
+    <script>
+    class My{{ slug }} extends Polymer.Element {
+      static get is() { return 'my-{{ slug }}'; }
+      static get properties() {
+        return {
+            backendUrl: {
+                type: String,
+                notify: true,
+                value: '{{ backend_url }}'
+            }
+        };
+      }
+    }
+
+
+    window.customElements.define(My{{ slug }}.is, My{{ slug }});
+
+    </script>
+
+
+
+</dom-module>
+{{ script | safe }}

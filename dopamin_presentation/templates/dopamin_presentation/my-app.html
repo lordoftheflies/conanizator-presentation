@@ -32,10 +32,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="{% static 'dopamin_presentation/src/plutonium-notification.html' %}">
 <link rel="import" href="{% static 'dopamin_presentation/src/plutonium-navigation.html' %}">
 
+<link rel="import" href="{% static 'dopamin_presentation/src/plutonium-module-menu-panel.html' %}">
+
+<link rel="import" href="{% static 'dopamin_presentation/src/plutonium-tree-menu.html' %}">
+
+
 <link rel="lazy-import" href="{% url 'page' 'my-view1' %}">
 <link rel="lazy-import" href="{% url 'page' 'my-view2' %}">
 <!--<link rel="lazy-import" href="{% url 'page' 'my-view3' %}">-->
 <link rel="lazy-import" href="{% url 'view3' %}">
+<link rel="lazy-import" href="{% url 'view4' %}">
 <link rel="lazy-import" href="{% url 'page' 'my-view404' %}">
 
 <dom-module id="my-app">
@@ -56,17 +62,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             app-header paper-icon-button {
                 --paper-icon-button-ink-color: white;
             }
-            .drawer-list a {
-                display: block;
-                padding: 0 16px;
-                text-decoration: none;
-                color: var(--app-secondary-color);
-                line-height: 40px;
-            }
-            .drawer-list a.iron-selected {
-                color: black;
-                font-weight: bold;
-            }
+
 
 
 
@@ -105,7 +101,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 {% verbatim %}
             </app-drawer>
 
-            <app-drawer id="minorDrawer" slot="drawer" align="end">
+            <app-drawer id="minorDrawer" slot="drawer" align="end" persistent>
                 {% endverbatim %}
                 {% include "dopamin_presentation/minor-drawer-content.html" %}
                 {% verbatim %}
